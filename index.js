@@ -1,17 +1,19 @@
 var xhr = require('xhr')
 var greeting = require('./views/greeting.hbs')
+var catHBS = require('./views/cats.hbs')
 
-var endpoint = 'https://api.wheretheiss.at/v1/satellites'
+// var endpoint = 'https://api.wheretheiss.at/v1/satellites'
+var endpoint = 'http://localhost:3000/cats'
 
 xhr.get(endpoint, function (err, data) {
   if (err) {
-    console.error(err)
+    console.error("ERR::", err)
   }
-
-  // In case you're curious
-  console.log(data.body) // FYI: data.body is a string
-
-  // Replace 'Space' below with the response
+  console.log(data.body)
+  var cats = JSON.parse(data.body)
+  var obj = {}
+  obj.cats = cats
+  console.log("AAAA::", obj)
   var target = document.getElementsByTagName('main')[0]
-  target.innerHTML = greeting({name: 'Space'})
+  target.innerHTML = catHBS(obj)
 })

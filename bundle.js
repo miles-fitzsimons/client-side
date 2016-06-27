@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var xhr=require("xhr"),greeting=require("./views/greeting.hbs"),endpoint="https://api.wheretheiss.at/v1/satellites";xhr.get(endpoint,function(e,n){e&&console.error(e),console.log(n.body);var r=document.getElementsByTagName("main")[0];r.innerHTML=greeting({name:"Space"})});
-},{"./views/greeting.hbs":30,"xhr":27}],2:[function(require,module,exports){
+var xhr=require("xhr"),greeting=require("./views/greeting.hbs"),catHBS=require("./views/cats.hbs"),endpoint="http://localhost:3000/cats";xhr.get(endpoint,function(e,r){e&&console.error("ERR::",e),console.log(r.body);var o=JSON.parse(r.body),t={};t.cats=o,console.log("AAAA::",t);var n=document.getElementsByTagName("main")[0];n.innerHTML=catHBS(t)});
+},{"./views/cats.hbs":30,"./views/greeting.hbs":31,"xhr":27}],2:[function(require,module,exports){
 function forEach(r,t,o){if(!isFunction(t))throw new TypeError("iterator must be a function");arguments.length<3&&(o=this),"[object Array]"===toString.call(r)?forEachArray(r,t,o):"string"==typeof r?forEachString(r,t,o):forEachObject(r,t,o)}function forEachArray(r,t,o){for(var n=0,a=r.length;n<a;n++)hasOwnProperty.call(r,n)&&t.call(o,r[n],n,r)}function forEachString(r,t,o){for(var n=0,a=r.length;n<a;n++)t.call(o,r.charAt(n),n,r)}function forEachObject(r,t,o){for(var n in r)hasOwnProperty.call(r,n)&&t.call(o,r[n],n,r)}var isFunction=require("is-function");module.exports=forEach;var toString=Object.prototype.toString,hasOwnProperty=Object.prototype.hasOwnProperty;
 
 },{"is-function":24}],3:[function(require,module,exports){
@@ -84,5 +84,8 @@ function once(n){var o=!1;return function(){if(!o)return o=!0,n.apply(this,argum
 function extend(){for(var r={},e=0;e<arguments.length;e++){var t=arguments[e];for(var n in t)hasOwnProperty.call(t,n)&&(r[n]=t[n])}return r}module.exports=extend;var hasOwnProperty=Object.prototype.hasOwnProperty;
 
 },{}],30:[function(require,module,exports){
+var HandlebarsCompiler=require("hbsfy/runtime");module.exports=HandlebarsCompiler.template({1:function(e,n,l,a,t){var r=e.lambda,s=e.escapeExpression;return"\t\t<li>"+s(r(null!=n?n.name:n,n))+" who is a "+s(r(null!=n?n.breed:n,n))+" and is "+s(r(null!=n?n.personality:n,n))+"</li>\n"},compiler:[7,">= 4.0.0"],main:function(e,n,l,a,t){var r,s,i=null!=n?n:{};return"<h1>Hello, these are the cats! "+e.escapeExpression((s=null!=(s=l.test||(null!=n?n.test:n))?s:l.helperMissing,"function"==typeof s?s.call(i,{name:"test",hash:{},data:t}):s))+"</h1>\n\n<ul>\n"+(null!=(r=l.each.call(i,null!=n?n.cats:n,{name:"each",hash:{},fn:e.program(1,t,0),inverse:e.noop,data:t}))?r:"")+"</ul>\n\n\n\n\n\n\n"},useData:!0});
+
+},{"hbsfy/runtime":23}],31:[function(require,module,exports){
 var HandlebarsCompiler=require("hbsfy/runtime");module.exports=HandlebarsCompiler.template({compiler:[7,">= 4.0.0"],main:function(e,a,n,l,r){var i;return"<h1>Hello "+e.escapeExpression((i=null!=(i=n.name||(null!=a?a.name:a))?i:n.helperMissing,"function"==typeof i?i.call(null!=a?a:{},{name:"name",hash:{},data:r}):i))+"!</h1>\n"},useData:!0});
 },{"hbsfy/runtime":23}]},{},[1]);
